@@ -1,0 +1,32 @@
+{
+  "name": "higgsfield",
+  "version": "1.0.0",
+  "description": "Higgsfield Seedance 2.5 text-to-video example",
+  "main": "index.ts",
+  "scripts": {
+    "start": "tsx index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartCube/Higgsfield.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MartCube/Higgsfield/issues"
+  },
+  "homepage": "https://github.com/MartCube/Higgsfield#readme",
+  "dependencies": {
+    "@higgsfield/client": "^0.2.6",
+    "dotenv": "^18.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "type": "module"
+}
