@@ -15,10 +15,18 @@ loadEnv({ path: ".env.local", quiet: true });
 
 const MODEL = "bytedance/seedance-2.5/text-to-video";
 
+// Usage: npm start -- "<prompt>" [duration] [resolution] [aspect_ratio]
+const [
+  prompt = "A cinematic scene at sunset",
+  duration = "5",
+  resolution = "720p",
+  aspectRatio = "16:9",
+] = process.argv.slice(2);
+
 async function main(): Promise<number> {
-  const credentials = process.env.HF_CREDENTIALS;
+  const credentials = process.env.HF_CREDENTIALS ?? process.env.HF_KEY;
   if (!credentials) {
-    console.error("HF_CREDENTIALS is not set. Add it to .env.local as key-id:key-secret.");
+    console.error("HF_CREDENTIALS (or HF_KEY) is not set. Add it to .env.local as key-id:key-secret.");
     return 1;
   }
 
@@ -28,13 +36,14 @@ async function main(): Promise<number> {
     maxPollTime: 20 * 60 * 1000,
   });
 
-  console.log(`Submitting request to ${MODEL}...`);
+  console.log(`Submitting request to ${MODEL} (${duration}s, ${resolution}, ${aspectRatio})...`);
+  console.log(`Prompt: ${prompt}`);
   const result = await client.subscribe(MODEL, {
     input: {
-      prompt: "A cinematic scene at sunset",
-      duration: 5,
-      resolution: "720p",
-      aspect_ratio: "16:9",
+      prompt,
+      duration: Number(duration),
+      resolution,
+      aspect_ratio: aspectRatio,
     },
     withPolling: true,
   });
